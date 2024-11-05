@@ -1,7 +1,6 @@
 from pydantic import BaseModel, Field
 from typing import List
 from phi.agent import Agent
-from phi.tools.serpapi_tools import SerpApiTools
 import streamlit as st
 from phi.model.google import Gemini
 import json
@@ -20,7 +19,7 @@ st.title("AI Cooking Assistant 🍲")
 st.caption("Discover recipes, plan meals, and cook like a chef with a personalized AI Cooking Assistant powered by GEMINI")
 
 # Get GEMINI API key from user
-gemini_api_key = st.text_input("Enter GEMINI API Key to access GPT-4o", type="password")
+gemini_api_key = st.secrets.get("API_KEY") or st.text_input("Enter GEMINI API Key", type="password")
 
 if gemini_api_key:
     recipe_researcher = Agent(
